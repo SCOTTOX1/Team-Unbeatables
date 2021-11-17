@@ -1,0 +1,88 @@
+﻿stall_name,item_name,price,delivery_service,
+Malay,Nasi lemak,2,yes,1
+Malay,Nasi goreng kampung,6,yes,2
+Malay,Nasi goreng tomyam,6.5,yes,3
+Malay,Nasi goreng ikan masin,6.5,yes,4
+Malay,Nasi goreng paprik,7,yes,5
+Malay,Nasi goreng USA,7,yes,6
+Malay,Nasi goreng pattaya,7,yes,7
+Malay,Nasi goreng biasa,5,yes,8
+Malay,Ikan goreng,3.5,yes,9
+Malay,Ayam goreng,3,yes,10
+Malay,Satay,1.2,yes,11
+Malay,Kuih talam,0.7,no,12
+Malay,Kuih koci,0.4,no,13
+Mamak,Roti canai,1.2,no,14
+Mamak,Roti telur,2.3,no,15
+Mamak,Roti cheese,2.5,no,16
+Mamak,Roti boom,2.2,no,17
+Mamak,Roti planta,2.2,no,18
+Mamak,Roti susu,2.2,no,19
+Mamak,Roti tisu,3.2,no,20
+Mamak,Tosai,1.2,no,21
+Mamak,Mee goreng,5,yes,22
+Mamak,Maggi goreng,5,yes,23
+Mamak,Maggi soup,4,yes,24
+Mamak,Teh tarik ais,2.2,no,25
+Mamak,The tarik panas,1.8,no,26
+Mamak,Milo ais,2.5,no,27
+Mamak,Milo panas,2.2,no,28
+Mamak,Cincau,2.5,no,29
+Mamak,Limau ais,1.8,no,30
+Mamak,Limau panas,1.5,no,31
+Mamak,Bandung ais,2,no,32
+Beverage,Apple juice,5,no,33
+Beverage,Orange juice,5,no,34
+Beverage,Watermelon juice,5,no,35
+Beverage,Cucumber juice,5,no,36
+Beverage,Pineapple juice,5,no,37
+Beverage,Carrot juice,5,no,38
+Beverage,Espresso,6,yes,39
+Beverage,Hot Americano,7,yes,40
+Beverage,Iced Americano,8,yes,41
+Beverage,Hot Latte,9,yes,42
+Beverage,Iced Latte,10,yes,43
+Beverage,Hot Cappuccino,9,yes,44
+Beverage,Ice Cappuccino,10,yes,45
+Beverage,Hot Mocha,9,yes,46
+Beverage,Iced Mocha,10,yes,47
+Korean,Tteok ,2,yes,48
+Korean,Kimchi ,4,yes,49
+Korean,Gimbap,4.5,yes,50
+Korean,Tteokbokki,5,yes,51
+Korean,Hobakjuk ,6,yes,52
+Korean,Ramyun,6.5,yes,53
+Korean,Kimchi Fried Rice,7,yes,54
+Korean,Bulgogi,7,yes,55
+Korean,Jjajangmyeon,7,yes,56
+Korean,Kongguksu,7.5,yes,57
+Korean,Japchae,8,yes,58
+Korean,Bulgogi with rice,8,yes,59
+Korean,Naengmyeon,8.5,yes,60
+Korean,Bibimbap,9,yes,61
+Korean,Sundubu Jjigae,10,yes,62
+Japanese,Miso Soup,1.5,yes,63
+Japanese,Chawanmushi,1.5,yes,64
+Japanese,Gyoza,5,yes,65
+Japanese,Tempura,5,yes,66
+Japanese,Tamagoyaki (Egg Roll),1.5,yes,67
+Japanese,Teriyaki Chicken Bento,8,yes,68
+Japanese,Teriyaki Vegetable Bento,6.5,yes,69
+Japanese,Seafood Bento,9,yes,70
+Japanese,Chicken Katsu Don,8,yes,71
+Japanese,Tempura Soba,7,yes,72
+Japanese,Chicken Yaki Soba,7,yes,73
+Japanese,Vegetable Yaki Soba,6,yes,74
+Japanese,Zaru Soba,6,yes,75
+Japanese,Zaru Soba + Tempura,7,yes,76
+Japanese,Tempura Udon,7,yes,77
+Japanese,Chicken Yaki Udon,7,yes,78
+Japanese,Vegetable Yaki Udon,6,yes,79
+Japanese,Zaru Udon,6,yes,80
+Japanese,Zaru Udon + Tempura,7,yes,81
+Japanese,Chicken Teriyaki Lunch Set (Miso Soup),10,yes,82
+Japanese,Tempura Lunch Set (Miso Soup),9,yes,83
+Japanese,Vegetarian Lunch Set (Miso Soup),8,yes,84
+Japanese,Chicken Teriyaki Dinner Set (Chawanmushi),10,yes,85
+Japanese,Tempura Dinner Set (Chawanmushi),9,yes,86
+Japanese,Vegetarian Dinner Set (Chawanmushi),8,yes,87

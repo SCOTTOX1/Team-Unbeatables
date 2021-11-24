@@ -68,12 +68,13 @@ class Application(tk.Tk):
                 this function is a nested function as each chatbot application is in function
                 food parameter is used to determine the price and the availability of the delivery services
                 """
+                    
                 def check_cart(stl_btn, chk_btn):
                     """
                     this function is used to check the cart before user exit the chatbot program
 
                     """
-
+                    # if the user did no add any item into cart previously, then item_cart list is empty, chatbot proceed to exit
                     if not item_cart:
                         exit_program(stl_btn, chk_btn)
 
@@ -104,7 +105,8 @@ class Application(tk.Tk):
                     convo_log.insert(tk.END, "\n\nYou: Exit\n\nBot: Goodbye and see you again.")
                     convo_log.config(state=tk.DISABLED)
                     convo_log.see(tk.END)
-
+                    
+                    # chatbot exit after 3 seconds
                     self.after(3000, lambda: self.destroy())
 
                 def click_delete(stl_btn, chk_btn):

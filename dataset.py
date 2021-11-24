@@ -4,9 +4,11 @@ df = pd.read_csv('Food List.csv')  # to read csv file
 
 
 def stall_type():
-    """
-    this function is used to convert type of stalls in food list.csv to list
-    then return stall_type_list to main.py
+    """convert type of stalls in food list.csv to list
+
+    return:
+    stall_type_list: list
+        result of conversion of data retrieved from csv file to list
     """
     stall_type_list = [
             df['stall_name'][0],
@@ -19,23 +21,42 @@ def stall_type():
 
 
 def to_dict(list_menu, food_price, delivery_service):
-    """
-    this function is used to convert data into dictionary
-    list_menu will be key, while food_price and delivery_service will be values in list format
-    """
+    """Convert data into dictionary
 
+    Parameter:
+    list_menu: list
+        key in this dictionary
+    food_price: list
+        is value in this dictionary
+    delivery_services: list
+        is value in this dictionary
+    
+    return:
+    food_dict: Dictionary
+        result of converting list to dictionary
+    """
+    # Step 1: Zip all the data using zip()
+    # Step 2: declare a dictionary
     zipfile = zip(list_menu, food_price, delivery_service)
     food_dict = {}
+
+    # Step 3: Using for loop to update dictionary
     for i, j, k in zipfile:
         food_dict[i] = [j, k]
     return food_dict
 
 
 def malay_data():
-    """
-    this function is used to convert data in food list.csv file to list and string using
-    pandas library
-    then return to main.py
+    """convert data in food list.csv file to list and string using pandas library
+
+    return:
+    item_menu: string
+        result of conversion of data retrieved from csv file to string from row 0 to row 12
+    list_menu: list
+        result of conversion of data retrieved from csv file to string from row 0 to row 12
+    food_price: list
+        result of conversion of data retrieved from csv file to string from row 0 to row 12
+
     """
     item_name = df['item_name'][0:13].to_string()
     list_menu = df['item_name'][0:13].tolist()
@@ -45,10 +66,16 @@ def malay_data():
 
 
 def mamak_data():
-    """
-    this function is used to convert data in food list.csv file to list and string using
-    pandas library
-    then return to main.py
+    """convert data in food list.csv file to list and string using pandas library
+
+    return:
+    item_menu: string
+        result of conversion of data retrieved from csv file to string from row 13 to row 31
+    list_menu: list
+        result of conversion of data retrieved from csv file to string from row 13 to row 31
+    food_price: list
+        result of conversion of data retrieved from csv file to string from row 13 to row 31
+
     """
     item_name = df['item_name'][13:32].to_string()
     list_menu = df['item_name'][13:32].tolist()
@@ -58,10 +85,16 @@ def mamak_data():
 
 
 def beverages_data():
-    """
-    this function is used to convert data in food list.csv file to list and string using
-    pandas library
-    then return to main.py
+    """convert data in food list.csv file to list and string using pandas library
+
+    return:
+    item_menu: string
+        result of conversion of data retrieved from csv file to string from row 32 to row 46
+    list_menu: list
+        result of conversion of data retrieved from csv file to string from row 32 to row 46
+    food_price: list
+        result of conversion of data retrieved from csv file to string from row 32 to row 46
+
     """
     item_name = df['item_name'][32:47].to_string()
     list_menu = df['item_name'][32:47].tolist()
@@ -71,10 +104,16 @@ def beverages_data():
 
 
 def korean_data():
-    """
-    this function is used to convert data in food list.csv file to list and string using
-    pandas library
-    then return to main.py
+    """convert data in food list.csv file to list and string using pandas library
+
+    return:
+    item_menu: string
+        result of conversion of data retrieved from csv file to string from row 47 to row 62
+    list_menu: list
+        result of conversion of data retrieved from csv file to string from row 47 to row 62
+    food_price: list
+        result of conversion of data retrieved from csv file to string from row 47 to row 62
+
     """
     item_name = df['item_name'][47:62].to_string()
     list_menu = df['item_name'][47:62].tolist()
@@ -84,19 +123,22 @@ def korean_data():
 
 
 def japanese_data():
-    """
-    this function is used to convert data in food list.csv file to list and string using
-    pandas library
-    then return to main.py
+    """convert data in food list.csv file to list and string using pandas library
+
+    return:
+    item_menu: string
+        result of conversion of data retrieved from csv file to string from row 62 to row 86
+    list_menu: list
+        result of conversion of data retrieved from csv file to string from row 62 to row 86
+    food_price: list
+        result of conversion of data retrieved from csv file to string from row 62 to row 86
+
     """
     item_name = df['item_name'][62:87].to_string()
     list_menu = df['item_name'][62:87].tolist()
     food_price = df['price'][62:87].tolist()
     delivery_service = df['delivery_service'][62:87].tolist()
     return item_name, list_menu, food_price, delivery_service
-
-
-
 
 
 

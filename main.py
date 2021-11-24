@@ -24,12 +24,13 @@ class Application(tk.Tk):
         btn_colour = '#e3a28d'
 
         def dropdown(food_dict, list_menu):
-            """
-            dropdown function is to display menu selection
-            to the user with tk.OptionMenu method from tkinter library.
-            This function is a nested function.
-            food_dict is a dictionary created in stall_selection()
-            list_menu is a list created in stall_selection()
+            """Display menu selection
+
+            Parameters:
+            food_dict: dictionary
+                food as key while price and delivery services are values
+            list_menu: list
+                to be displayed in dropdown menu
             """
 
             def print_to_convowindow():
@@ -45,8 +46,7 @@ class Application(tk.Tk):
                 chatbot_application(food)
 
             def back():
-                """
-                let the user to go back to stall selection
+                """ let the user to go back to stall selection
                 """
                 convo_log.config(state=tk.NORMAL)
                 convo_log.insert(tk.END, "You: Back")
@@ -58,17 +58,23 @@ class Application(tk.Tk):
                 stall_selection()
 
             def chatbot_application(food):
-                """
-                chatbot_application function is to carry out chatbot application such as:
-                delivery services, self pickup, and provide name and address to have delivery services
-                this function is a nested function as each chatbot application is in function
-                food parameter is used to determine the price and the availability of the delivery services
-                """
-                def check_cart(stl_btn, chk_btn):
-                    """
-                    this function is used to check the cart before user exit the chatbot program
-                    buttons as parameters in this function are to be destroyed in this function
+                """Perform Chatbot Application
 
+                Parameters:
+                food: string
+                    food that obtained from print_to_convowindow()
+                    to continue process of chatbot application such as appending the item_cart list
+
+                """
+
+                def check_cart(stl_btn, chk_btn):
+                    """To check item_cart
+
+                    Parameters:
+                    stl_btn: Tkinter button widget
+                       to be destroyed in this function
+                    chk_btn: Tkinter button widget
+                        to be destroyed in this function
                     """
 
                     if not item_cart:
@@ -104,21 +110,31 @@ class Application(tk.Tk):
                     self.after(3000, lambda: self.destroy())
 
                 def click_delete(stl_btn, chk_btn):
-                    """
-                    this function happened after user select self pickup,
-                    and wish to order another food
-                    buttons as parameters in this function are to be destroyed in this function
-                    """
+                    """To destroy buttons and proceed to stall_selection()
+
+                     Parameters:
+                     stl_btn: Tkinter button widget
+                        to be destroyed in this function
+                     chk_btn: Tkinter button widget
+                         to be destroyed in this function
+                     """
+
                     stall_selection()
                     stl_btn.destroy()
                     chk_btn.destroy()
 
                 def self_pickup_click_delete(yes_btn, menu_btn, stall_select_btn):
-                    """
-                    this function is when user proceed to self-pickup
-                    when delivery service is not provided
-                    buttons as parameters in this function are to be destroyed in this function
-                    """
+                    """Proceed to self_pickup()
+
+                     Parameters:
+                     yes_btn: Tkinter button widget
+                        to be destroyed in this function
+                     menu_btn: Tkinter button widget
+                        to be destroyed in this function
+                     stall_select_btn: Tkinter button widget
+                        to be destroyed in this function
+                     """
+
                     item_price.append(food_price)
                     item_cart.append(food)
                     convo_log.config(state=tk.NORMAL)
@@ -126,30 +142,41 @@ class Application(tk.Tk):
                     convo_log.config(state=tk.DISABLED)
                     convo_log.see(tk.END)
                     self_pickup()
-                    yes_btn.destroy()
+                    yes_btn.destroy()  # buttons are destroyed using destroy() from tkinter
                     menu_btn.destroy()
                     stall_select_btn.destroy()
 
                 def menu_click_delete(yes_btn, menu_btn, stall_select_btn):
-                    """
-                    when users wish to be back to menu selection due to delivery service is not provided.
-                    buttons as parameters in this function are to be destroyed in this function
-                    """
+                    """Proceed to dropdown(food_dict, list_menu)
+
+                     Parameters:
+                     yes_btn: Tkinter button widget
+                        to be destroyed in this function
+                     menu_btn: Tkinter button widget
+                        to be destroyed in this function
+                     stall_select_btn: Tkinter button widget
+                        to be destroyed in this function
+                     """
                     convo_log.config(state=tk.NORMAL)
-                    convo_log.insert(tk.END, "\n\nYou: Menu")
+                    convo_log.insert(tk.END, "\n\nYou: Menu")  # input to convo_log
                     convo_log.config(state=tk.DISABLED)
                     convo_log.see(tk.END)
-                    yes_btn.destroy()  # buttons are destroyed using destroy() from tkinter
+                    yes_btn.destroy()
                     menu_btn.destroy()
                     stall_select_btn.destroy()
                     dropdown(food_dict, list_menu)
 
                 def stall_click_delete(yes_btn, menu_btn, stall_select_btn):
-                    """
-                    this function is to destroy the buttons when delivery services is not provided,
-                    and users wish to go back to stall selection
-                    buttons as parameters in this function are to be destroyed in this function
-                    """
+                    """Proceed to stall_selection()
+
+                     Parameters:
+                     yes_btn: Tkinter button widget
+                        to be destroyed in this function
+                     menu_btn: Tkinter button widget
+                        to be destroyed in this function
+                     stall_select_btn: Tkinter button widget
+                        to be destroyed in this function
+                     """
                     convo_log.config(state=tk.NORMAL)
                     convo_log.insert(tk.END, "\n\nYou: Stall Selection")
                     convo_log.config(state=tk.DISABLED)
@@ -160,11 +187,14 @@ class Application(tk.Tk):
                     stall_selection()
 
                 def delivery_yes_delete(self_pickup_btn, delivery_btn):
-                    """
-                    this function is after user select self pick up when delivery services is provided.
-                    After destroying buttons, will bring user to self_pickup function
-                    buttons as parameters in this function are to be destroyed in this function
-                    """
+                    """Proceed to self_pickup even delivery service is provided
+
+                     Parameters:
+                     self_pickup_btn: Tkinter button widget
+                        to be destroyed in this function
+                     delivery_btn: Tkinter button widget
+                        to be destroyed in this function
+                     """
                     # append the global item_price and item_cart here with the food that user selected
                     item_price.append(food_price)
                     item_cart.append(food)
@@ -178,11 +208,14 @@ class Application(tk.Tk):
                     self_pickup()
 
                 def checkout_click_delete(chk_stl_btn, chk_chk_btn):
-                    """
-                    this function happened after checkout()
-                    to clear the list, when user wish to order another food
-                    buttons as parameters in this function are to be destroyed in this function
-                    """
+                    """Proceed to stall_selection() after checkout()
+
+                     Parameters:
+                     chk_stl_btn: Tkinter button widget
+                        to be destroyed in this function
+                     chk_chk_btn: Tkinter button widget
+                        to be destroyed in this function
+                     """
                     # clear the list after user select checkout
                     item_price.clear()
                     item_cart.clear()
@@ -192,21 +225,27 @@ class Application(tk.Tk):
                     chk_stl_btn.destroy()
 
                 def delivery_click_delete(del_stl_btn, del_chk_btn):
-                    """
-                    as delivery service does not provide 'adding to cart' function,
-                    so the list must be cleared before user proceeds to stall selection
-                    buttons as parameters in this function are to be destroyed in this function
-                    """
+                    """Proceed to stall_selection()
 
+                     Parameters:
+                     del_stl_btn: Tkinter button widget
+                        to be destroyed in this function
+                     del_chk_btn: Tkinter button widget
+                        to be destroyed in this function
+                     """
                     del_stl_btn.destroy()
                     del_chk_btn.destroy()
                     stall_selection()
 
                 def checkout(stl_btn, chk_btn):
-                    """
-                    this function is used to carried out checking out application.
-                    buttons as parameters in this function are to be destroyed in this function
-                    """
+                    """Perform checkout application
+
+                     Parameters:
+                     stl_btn: Tkinter button widget
+                        to be destroyed in this function
+                     chk_btn: Tkinter button widget
+                        to be destroyed in this function
+                     """
                     stl_btn.destroy()
                     chk_btn.destroy()
                     order_num = random.sample(range(5000), 1)  # order number to user to collect food at the stall
@@ -247,9 +286,7 @@ class Application(tk.Tk):
                     item_cart.clear()
 
                 def self_pickup():
-                    """
-                    self_pickup function is to carry out self pickup application.
-
+                    """ Perform Self pickup application
                     """
                     convo_log.config(state=tk.NORMAL)
                     convo_log.insert(tk.END, "\n\nBot: You have ordered " + food +
@@ -273,10 +310,7 @@ class Application(tk.Tk):
                     stall_btn.place(x=80, y=401, height=50)
 
                 def delivery_services():
-                    """
-                    delivery_service function is to carry out delivery application.
-                    This function is a nested function as it consists of printing text to conversation window,
-                    checkout function.
+                    """ Perform delivery application.
                     """
                     def print_text():
                         # obtain user's name, phone num and address from entry box
@@ -291,6 +325,7 @@ class Application(tk.Tk):
                             convo_log.see(tk.END)
 
                         user_address = user_building + ' ' + user_floor
+                        # to check if user input correct username and phone number
                         if user_name.isdigit() or user_phoneno.isalpha() or (user_name and user_phoneno == '') or (len(user_phoneno) != 10 and len(user_phoneno) != 11):
                             convo_log.config(state=tk.NORMAL)
                             convo_log.insert(tk.END, "\n\nBot: Incorrect Phone Number or Username")
@@ -327,8 +362,11 @@ class Application(tk.Tk):
                             exit_btn['command'] = lambda del_stl_btn=delivery_stall_btn, del_exit_btn=exit_btn: check_cart(del_stl_btn, del_exit_btn)
 
                     def bind_func(selected_building):
-                        """
-                        this function is to bind the dropdown of the floor address with building dropdown
+                        """to bind the dropdown of the floor address with building dropdown
+
+                        Paremeter:
+                        selected_building: string
+                            to bind with building dropdown
                         """
                         floor_dropdown.set_menu(*floor.get(selected_building))
 
@@ -377,8 +415,12 @@ class Application(tk.Tk):
                              "Block G": ["-", "LG2", "Level G", "Level 1", "Level 8", "Level 9", "Level 10", "Level 11"]
                              }
                     selected_floor = tk.StringVar()
+                    
+                    # Floor Dropdown that binds with building dropdown
                     floor_dropdown = ttk.OptionMenu(self, selected_floor, '-')
                     floor_dropdown.place(x=190, y=480)
+                    
+                    # Send button that will print user to print_text()
                     send_button = tk.Button(self, font=(font_type, 12, 'bold'), text="Send", width="8", height=5,
                                             bg="#32de97", command=print_text)
                     send_button.place(x=6, y=401, height=90)
@@ -479,17 +521,11 @@ class Application(tk.Tk):
         scrollbar.place(x=430, y=6, height=386)
 
         def stall_selection():
-            """
-            After user select stalls, data will be retrieved from dataset.py in respective function under
-            stall_selection()
-            data that will be collected are: item_name, list_menu, food_price and delivery services
-            these data will be converted into dictionary except item_name
-            ds.to_dict is the method from dataset.py to convert the required information into dictionary
-            """
+            """Perform data retrieval from dataset.py in respective function
+             """
 
             def button_destroy():
-                """
-                to destroy buttons created in Application.__init__()
+                """to destroy buttons in stall_selection()
                 """
                 mamak_button.destroy()
                 beverage_button.destroy()

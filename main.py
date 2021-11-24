@@ -1,22 +1,13 @@
 import tkinter as tk
 import random
 from tkinter import ttk
-import pandas as pd
+import dataset as ds  # to carry out data retrieval process
 
-df = pd.read_csv('Food List.csv')
-
-# retrieve data from csv file and turns into list
-menu = [
-        df['stall_name'][0],
-        df['stall_name'][13],
-        df['stall_name'][32],
-        df['stall_name'][47],
-        df['stall_name'][62]
-        ]
+stall_type = ds.stall_type()  # return type of the stall
 
 # message to be shown in the chatbot
 to_show = "Hello! Welcome to Food Ordering Chatbot! Please type out the stall name first: \n 1. {0}\n 2. {1}\n " \
-          "3. {2}\n 4. {3}\n 5. {4}\n\n".format(*menu)
+          "3. {2}\n 4. {3}\n 5. {4}\n\n".format(*stall_type)
 
 item_price = []  # empty item_price list to store price of the item after user select
 item_cart = []  # empty item_cart list to store the food after user select
@@ -28,7 +19,6 @@ class Application(tk.Tk):
         tk.Tk.__init__(self, *args, **kwargs)
         bg_colour = '#feffe0'
         font_type = 'Calibri'
-        global df
         global to_show
         global item_price, item_cart
         btn_colour = '#e3a28d'
@@ -129,6 +119,8 @@ class Application(tk.Tk):
                     when delivery service is not provided
                     buttons as parameters in this function are to be destroyed in this function
                     """
+                    item_price.append(food_price)
+                    item_cart.append(food)
                     convo_log.config(state=tk.NORMAL)
                     convo_log.insert(tk.END, "\n\nYou: Self Pick Up")
                     convo_log.config(state=tk.DISABLED)
@@ -173,7 +165,6 @@ class Application(tk.Tk):
                     After destroying buttons, will bring user to self_pickup function
                     buttons as parameters in this function are to be destroyed in this function
                     """
-
                     # append the global item_price and item_cart here with the food that user selected
                     item_price.append(food_price)
                     item_cart.append(food)
@@ -206,9 +197,7 @@ class Application(tk.Tk):
                     so the list must be cleared before user proceeds to stall selection
                     buttons as parameters in this function are to be destroyed in this function
                     """
-                    # clear the list after user select checkout
-                    item_price.clear()
-                    item_cart.clear()
+
                     del_stl_btn.destroy()
                     del_chk_btn.destroy()
                     stall_selection()
@@ -409,6 +398,7 @@ class Application(tk.Tk):
 
                     #  User get to choose between self pickup or delivery here
                     if delivery_service == 'yes':
+
                         convo_log.config(state=tk.NORMAL)
                         convo_log.insert(tk.END, "\nBot: Self Pick Up or require delivery service")
                         convo_log.see(tk.END)
@@ -429,8 +419,6 @@ class Application(tk.Tk):
                             delivery_button: delivery_yes_delete(self_pickup_btn, delivery_btn)
 
                     if delivery_service == 'no':
-                        item_price.append(food_price)
-                        item_cart.append(food)
                         convo_log.config(state=tk.NORMAL)
                         convo_log.insert(tk.END, "\n\nBot: This item does not provide delivery service"
                                                  "\nYou must visit the restaurant to pick up the item."
@@ -490,21 +478,13 @@ class Application(tk.Tk):
         convo_log['yscrollcommand'] = scrollbar.set
         scrollbar.place(x=430, y=6, height=386)
 
-        def to_dict(list_menu, food_price, delivery_service):
-            """
-            this function is used to convert the list_menu, food_price and delivery_services to dict
-            list_menu will be key, while food_price and delivery_services will be values in list format
-            """
-            zipfile = zip(list_menu, food_price, delivery_service)
-            food_dict = {}
-            for i, j, k in zipfile:
-                food_dict[i] = [j, k]
-            return food_dict
-
         def stall_selection():
             """
-            stall_selection () is used to convert the user's selection into dictionary and list
-
+            After user select stalls, data will be retrieved from dataset.py in respective function under
+            stall_selection()
+            data that will be collected are: item_name, list_menu, food_price and delivery services
+            these data will be converted into dictionary except item_name
+            ds.to_dict is the method from dataset.py to convert the required information into dictionary
             """
 
             def button_destroy():
@@ -519,76 +499,58 @@ class Application(tk.Tk):
 
             def malay_stall():
 
-                # retrieve data from csv file and save in list format and string format
-                # item_name is saved as string format as it is needed to be printed out on convo_log
-                item_name = df['item_name'][0:13].to_string()
-                list_menu = df['item_name'][0:13].tolist()
-                food_price = df['price'][0:13].tolist()
-                delivery_service = df['delivery_service'][0:13].tolist()
-
+                item_name, list_menu, food_price, delivery_service = ds.malay_data()
                 convo_log.config(state=tk.NORMAL)
                 convo_log.insert(tk.END, "You: Malay Stall\n\n")
                 convo_log.insert(tk.END, "Bot: The items are as follows:\n\n" + str(item_name) + "\n\n")
                 convo_log.config(state=tk.DISABLED)
                 convo_log.see(tk.END)  # to view the latest message that is printed onto the convo_log screen
                 button_destroy()
-                dropdown(to_dict(list_menu, food_price, delivery_service), list_menu)
+                dropdown(ds.to_dict(list_menu, food_price, delivery_service), list_menu)
 
             def mamak_stall():
 
-                item_name = df['item_name'][13:32].to_string()
-                list_menu = df['item_name'][13:32].tolist()
-                food_price = df['price'][13:32].tolist()
-                delivery_service = df['delivery_service'][13:32].tolist()
+                item_name, list_menu, food_price, delivery_service = ds.mamak_data()
                 convo_log.config(state=tk.NORMAL)
                 convo_log.insert(tk.END, "You: Mamak Stall\n\n")
                 convo_log.insert(tk.END, "Bot: The items are as follows:\n\n" + str(item_name) + "\n\n")
                 convo_log.config(state=tk.DISABLED)
                 convo_log.see(tk.END)
                 button_destroy()
-                dropdown(to_dict(list_menu, food_price, delivery_service), list_menu)
+                dropdown(ds.to_dict(list_menu, food_price, delivery_service), list_menu)
 
             def beverage_stall():
 
-                item_name = df['item_name'][32:47].to_string()
-                list_menu = df['item_name'][32:47].tolist()
-                food_price = df['price'][32:47].tolist()
-                delivery_service = df['delivery_service'][32:47].tolist()
+                item_name, list_menu, food_price, delivery_service = ds.beverages_data()
                 convo_log.config(state=tk.NORMAL)
                 convo_log.insert(tk.END, "You: Beverage Stall\n\n")
                 convo_log.insert(tk.END, "Bot: The items are as follows:\n\n" + str(item_name) + "\n\n")
                 convo_log.config(state=tk.DISABLED)
                 convo_log.see(tk.END)
                 button_destroy()
-                dropdown(to_dict(list_menu, food_price, delivery_service), list_menu)
+                dropdown(ds.to_dict(list_menu, food_price, delivery_service), list_menu)
 
             def korean_stall():
 
-                item_name = df['item_name'][47:62].to_string()
-                list_menu = df['item_name'][47:62].tolist()
-                food_price = df['price'][47:62].tolist()
-                delivery_service = df['delivery_service'][47:62].tolist()
+                item_name, list_menu, food_price, delivery_service = ds.korean_data()
                 convo_log.config(state=tk.NORMAL)
                 convo_log.insert(tk.END, "You: Korean Stall\n\n")
                 convo_log.insert(tk.END, "Bot: The items are as follows:\n\n" + str(item_name) + "\n\n")
                 convo_log.config(state=tk.DISABLED)
                 convo_log.see(tk.END)
                 button_destroy()
-                dropdown(to_dict(list_menu, food_price, delivery_service), list_menu)
+                dropdown(ds.to_dict(list_menu, food_price, delivery_service), list_menu)
 
             def japanese_stall():
 
-                item_name = df['item_name'][62:87].to_string()
-                list_menu = df['item_name'][62:87].tolist()
-                food_price = df['price'][62:87].tolist()
-                delivery_service = df['delivery_service'][62:87].tolist()
+                item_name, list_menu, food_price, delivery_service = ds.japanese_data()
                 convo_log.config(state=tk.NORMAL)
                 convo_log.insert(tk.END, "You: Japanese Stall\n\n")
                 convo_log.insert(tk.END, "Bot: The items are as follows:\n\n" + str(item_name) + "\n\n")
                 convo_log.config(state=tk.DISABLED)
                 convo_log.see(tk.END)
                 button_destroy()
-                dropdown(to_dict(list_menu, food_price, delivery_service), list_menu)
+                dropdown(ds.to_dict(list_menu, food_price, delivery_service), list_menu)
 
             # Malay Button
             malay_button = tk.Button(self, font=(font_type, 12, 'bold'), text="Malay", width="9", height='5',

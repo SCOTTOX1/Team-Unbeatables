@@ -6,7 +6,13 @@ import pandas as pd
 df = pd.read_csv('Food List.csv')
 
 # retrieve data from csv file and turns into list
-menu = [df['stall_name'][0], df['stall_name'][13], df['stall_name'][32], df['stall_name'][47], df['stall_name'][62]]
+menu = [
+        df['stall_name'][0],
+        df['stall_name'][13],
+        df['stall_name'][32],
+        df['stall_name'][47],
+        df['stall_name'][62]
+        ]
 
 # message to be shown in the chatbot
 to_show = "Hello! Welcome to Food Ordering Chatbot! Please type out the stall name first: \n 1. {0}\n 2. {1}\n " \
@@ -42,20 +48,20 @@ class Application(tk.Tk):
                 food = selected_item.get()
                 convo_log.insert(tk.END, "You: " + food + '\n\n')
                 convo_log.config(state=tk.DISABLED)
-                convo_log.see(tk.END)
-
+                convo_log.see(tk.END)  # .see(tk.END) is used to show user the latest msg printed on convo_log
                 dropdown_menu.destroy()
                 submit_button.destroy()
                 back_button.destroy()
                 chatbot_application(food)
 
             def back():
-                # input to convo_log
+                """
+                let the user to go back to stall selection
+                """
                 convo_log.config(state=tk.NORMAL)
                 convo_log.insert(tk.END, "You: Back")
                 convo_log.config(state=tk.DISABLED)
                 convo_log.see(tk.END)
-
                 dropdown_menu.destroy()
                 submit_button.destroy()
                 back_button.destroy()
@@ -68,13 +74,13 @@ class Application(tk.Tk):
                 this function is a nested function as each chatbot application is in function
                 food parameter is used to determine the price and the availability of the delivery services
                 """
-                    
                 def check_cart(stl_btn, chk_btn):
                     """
                     this function is used to check the cart before user exit the chatbot program
+                    buttons as parameters in this function are to be destroyed in this function
 
                     """
-                    # if the user did no add any item into cart previously, then item_cart list is empty, chatbot proceed to exit
+
                     if not item_cart:
                         exit_program(stl_btn, chk_btn)
 
@@ -99,73 +105,93 @@ class Application(tk.Tk):
                 def exit_program(stl_btn, chk_btn):
                     stl_btn.destroy()
                     chk_btn.destroy()
-
-                    # input to convo_log
                     convo_log.config(state=tk.NORMAL)
                     convo_log.insert(tk.END, "\n\nYou: Exit\n\nBot: Goodbye and see you again.")
                     convo_log.config(state=tk.DISABLED)
                     convo_log.see(tk.END)
-                    
-                    # chatbot exit after 3 seconds
+
+                    # program exit after 3 seconds
                     self.after(3000, lambda: self.destroy())
 
                 def click_delete(stl_btn, chk_btn):
+                    """
+                    this function happened after user select self pickup,
+                    and wish to order another food
+                    buttons as parameters in this function are to be destroyed in this function
+                    """
                     stall_selection()
                     stl_btn.destroy()
                     chk_btn.destroy()
 
                 def self_pickup_click_delete(yes_btn, menu_btn, stall_select_btn):
-                    # input to convo_log
+                    """
+                    this function is when user proceed to self-pickup
+                    when delivery service is not provided
+                    buttons as parameters in this function are to be destroyed in this function
+                    """
                     convo_log.config(state=tk.NORMAL)
                     convo_log.insert(tk.END, "\n\nYou: Self Pick Up")
                     convo_log.config(state=tk.DISABLED)
                     convo_log.see(tk.END)
-
                     self_pickup()
                     yes_btn.destroy()
                     menu_btn.destroy()
                     stall_select_btn.destroy()
 
                 def menu_click_delete(yes_btn, menu_btn, stall_select_btn):
-                    # input to convo_log
+                    """
+                    when users wish to be back to menu selection due to delivery service is not provided.
+                    buttons as parameters in this function are to be destroyed in this function
+                    """
                     convo_log.config(state=tk.NORMAL)
                     convo_log.insert(tk.END, "\n\nYou: Menu")
                     convo_log.config(state=tk.DISABLED)
                     convo_log.see(tk.END)
-
-                    yes_btn.destroy()
+                    yes_btn.destroy()  # buttons are destroyed using destroy() from tkinter
                     menu_btn.destroy()
                     stall_select_btn.destroy()
                     dropdown(food_dict, list_menu)
 
                 def stall_click_delete(yes_btn, menu_btn, stall_select_btn):
-                    # input to convo_log
+                    """
+                    this function is to destroy the buttons when delivery services is not provided,
+                    and users wish to go back to stall selection
+                    buttons as parameters in this function are to be destroyed in this function
+                    """
                     convo_log.config(state=tk.NORMAL)
                     convo_log.insert(tk.END, "\n\nYou: Stall Selection")
                     convo_log.config(state=tk.DISABLED)
                     convo_log.see(tk.END)
-
                     yes_btn.destroy()
                     menu_btn.destroy()
                     stall_select_btn.destroy()
                     stall_selection()
 
                 def delivery_yes_delete(self_pickup_btn, delivery_btn):
+                    """
+                    this function is after user select self pick up when delivery services is provided.
+                    After destroying buttons, will bring user to self_pickup function
+                    buttons as parameters in this function are to be destroyed in this function
+                    """
+
+                    # append the global item_price and item_cart here with the food that user selected
                     item_price.append(food_price)
                     item_cart.append(food)
 
-                    # input to convo_log
                     convo_log.config(state=tk.NORMAL)
                     convo_log.insert(tk.END, "\n\nYou: Self Pick Up\n\n")
                     convo_log.config(state=tk.DISABLED)
                     convo_log.see(tk.END)
-
                     self_pickup_btn.destroy()
                     delivery_btn.destroy()
                     self_pickup()
 
                 def checkout_click_delete(chk_stl_btn, chk_chk_btn):
-
+                    """
+                    this function happened after checkout()
+                    to clear the list, when user wish to order another food
+                    buttons as parameters in this function are to be destroyed in this function
+                    """
                     # clear the list after user select checkout
                     item_price.clear()
                     item_cart.clear()
@@ -175,7 +201,11 @@ class Application(tk.Tk):
                     chk_stl_btn.destroy()
 
                 def delivery_click_delete(del_stl_btn, del_chk_btn):
-
+                    """
+                    as delivery service does not provide 'adding to cart' function,
+                    so the list must be cleared before user proceeds to stall selection
+                    buttons as parameters in this function are to be destroyed in this function
+                    """
                     # clear the list after user select checkout
                     item_price.clear()
                     item_cart.clear()
@@ -184,13 +214,17 @@ class Application(tk.Tk):
                     stall_selection()
 
                 def checkout(stl_btn, chk_btn):
+                    """
+                    this function is used to carried out checking out application.
+                    buttons as parameters in this function are to be destroyed in this function
+                    """
                     stl_btn.destroy()
                     chk_btn.destroy()
-                    order_num = random.sample(range(5000), 1)
+                    order_num = random.sample(range(5000), 1)  # order number to user to collect food at the stall
                     convo_log.config(state=tk.NORMAL)
                     convo_log.insert(tk.END, "\n\nYou: Check Out")
                     convo_log.see(tk.END)
-                    # Calculate the price in item_price list
+                    # Calculate the price in item_price list, thus letting total_price = 0
                     total_price = 0
                     for i in item_price:
                         total_price += i
@@ -291,13 +325,17 @@ class Application(tk.Tk):
                             floor_dropdown.destroy()
                             phoneno_label.destroy()
                             phoneno_entry.destroy()
+
+                            # exit button will bring user to check_cart first to check if cart is empty before exiting
                             exit_btn = tk.Button(self, text="Exit", font=(font_type, 14), bg=btn_colour)
+                            exit_btn.place(x=250, y=401, height=50)
+
+                            # stall selection button bring user to destroy button function first then only to stall_selection()
                             delivery_stall_btn = tk.Button(self, text="Stall Selection", font=(font_type, 14),
                                                            bg=btn_colour)
-                            delivery_stall_btn['command'] = lambda del_stl_btn=delivery_stall_btn, del_exit_btn=exit_btn: delivery_click_delete(del_stl_btn, del_exit_btn)
-                            exit_btn.place(x=250, y=401, height=50)
-                            exit_btn['command'] = lambda del_stl_btn=delivery_stall_btn, del_exit_btn=exit_btn: check_cart(del_stl_btn, del_exit_btn)
                             delivery_stall_btn.place(x=80, y=401, height=50)
+                            delivery_stall_btn['command'] = lambda del_stl_btn=delivery_stall_btn, del_exit_btn=exit_btn: delivery_click_delete(del_stl_btn, del_exit_btn)
+                            exit_btn['command'] = lambda del_stl_btn=delivery_stall_btn, del_exit_btn=exit_btn: check_cart(del_stl_btn, del_exit_btn)
 
                     def bind_func(selected_building):
                         """
@@ -420,7 +458,7 @@ class Application(tk.Tk):
                         stall_select_button['command'] = lambda yes_btn = yes_button, menu_btn = menu_button, stall_select_btn = stall_select_button:\
                             stall_click_delete(yes_btn, menu_btn, stall_select_btn)
                         convo_log.config(state=tk.DISABLED)
-            
+
             # Food is listed using OptionMenu function
             selected_item = tk.StringVar()
             selected_item.set("Select Your Food Here")
@@ -480,31 +518,28 @@ class Application(tk.Tk):
                 malay_button.destroy()
 
             def malay_stall():
-                
+
                 # retrieve data from csv file and save in list format and string format
-                # item_name is saved as string format as it is needed to be printed out on convo+log
+                # item_name is saved as string format as it is needed to be printed out on convo_log
                 item_name = df['item_name'][0:13].to_string()
                 list_menu = df['item_name'][0:13].tolist()
                 food_price = df['price'][0:13].tolist()
                 delivery_service = df['delivery_service'][0:13].tolist()
-                
+
                 convo_log.config(state=tk.NORMAL)
                 convo_log.insert(tk.END, "You: Malay Stall\n\n")
                 convo_log.insert(tk.END, "Bot: The items are as follows:\n\n" + str(item_name) + "\n\n")
                 convo_log.config(state=tk.DISABLED)
-                convo_log.see(tk.END)
+                convo_log.see(tk.END)  # to view the latest message that is printed onto the convo_log screen
                 button_destroy()
                 dropdown(to_dict(list_menu, food_price, delivery_service), list_menu)
 
             def mamak_stall():
-                
-                # retrieve data from csv file and save in list format and string format
-                # item_name is saved as string format as it is needed to be printed out on convo+log
+
                 item_name = df['item_name'][13:32].to_string()
                 list_menu = df['item_name'][13:32].tolist()
                 food_price = df['price'][13:32].tolist()
                 delivery_service = df['delivery_service'][13:32].tolist()
-                
                 convo_log.config(state=tk.NORMAL)
                 convo_log.insert(tk.END, "You: Mamak Stall\n\n")
                 convo_log.insert(tk.END, "Bot: The items are as follows:\n\n" + str(item_name) + "\n\n")
@@ -514,14 +549,11 @@ class Application(tk.Tk):
                 dropdown(to_dict(list_menu, food_price, delivery_service), list_menu)
 
             def beverage_stall():
-                
-                # retrieve data from csv file and save in list format and string format
-                # item_name is saved as string format as it is needed to be printed out on convo+log
+
                 item_name = df['item_name'][32:47].to_string()
                 list_menu = df['item_name'][32:47].tolist()
                 food_price = df['price'][32:47].tolist()
                 delivery_service = df['delivery_service'][32:47].tolist()
-                
                 convo_log.config(state=tk.NORMAL)
                 convo_log.insert(tk.END, "You: Beverage Stall\n\n")
                 convo_log.insert(tk.END, "Bot: The items are as follows:\n\n" + str(item_name) + "\n\n")
@@ -531,14 +563,11 @@ class Application(tk.Tk):
                 dropdown(to_dict(list_menu, food_price, delivery_service), list_menu)
 
             def korean_stall():
-                
-                # retrieve data from csv file and save in list format and string format
-                # item_name is saved as string format as it is needed to be printed out on convo+log
+
                 item_name = df['item_name'][47:62].to_string()
                 list_menu = df['item_name'][47:62].tolist()
                 food_price = df['price'][47:62].tolist()
                 delivery_service = df['delivery_service'][47:62].tolist()
-                
                 convo_log.config(state=tk.NORMAL)
                 convo_log.insert(tk.END, "You: Korean Stall\n\n")
                 convo_log.insert(tk.END, "Bot: The items are as follows:\n\n" + str(item_name) + "\n\n")
@@ -548,14 +577,11 @@ class Application(tk.Tk):
                 dropdown(to_dict(list_menu, food_price, delivery_service), list_menu)
 
             def japanese_stall():
-                
-                # retrieve data from csv file and save in list format and string format
-                # item_name is saved as string format as it is needed to be printed out on convo+log
+
                 item_name = df['item_name'][62:87].to_string()
                 list_menu = df['item_name'][62:87].tolist()
                 food_price = df['price'][62:87].tolist()
                 delivery_service = df['delivery_service'][62:87].tolist()
-                
                 convo_log.config(state=tk.NORMAL)
                 convo_log.insert(tk.END, "You: Japanese Stall\n\n")
                 convo_log.insert(tk.END, "Bot: The items are as follows:\n\n" + str(item_name) + "\n\n")
@@ -600,4 +626,3 @@ class Application(tk.Tk):
 
 chatbotapp = Application()  # to run the Application class as chatbotapp
 chatbotapp.mainloop()
-

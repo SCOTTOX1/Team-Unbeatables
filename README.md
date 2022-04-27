@@ -1,8 +1,5 @@
 # Team-Unbeatables
 
-## Food Ordering Chatbot
-This is a food ordering chatbot.
-
 ## Usage
 Buttons are provided and act as quick replies button to interact with the chatbot
 
